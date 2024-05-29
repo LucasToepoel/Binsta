@@ -1,0 +1,21 @@
+{
+  "name": "lucas/gettin-twiggy-with-it-bd6671273403-fb55b09cfd50",
+  "autoload": {
+    "files": [
+      "helpers.php"
+    ],
+    "classmap": [
+      "controllers/"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Lucas Toepoel",
+      "email": "lucastoepoel@gmail.com"
+    }
+  ],
+  "require": {
+    "twig/twig": "*",
+    "gabordemooij/redbean": "dev-master"
+  }
+}

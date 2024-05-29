@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profiles</title>
+</head>
+<body>
+    <h1>User Profiles</h1>
+    <h5>you searched for {{search}}</h5>
+    <ul>
+        {% for user in users %}
+            <li>
+                <a href="{{ 'show?id=' ~ user.id }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{'../img/' ~ user.profilephoto_id }}.png" style="height: 100px; width: 100px; float: left; margin-right: 10px;" alt="{{ user.username }}">
+                            <div style="display: flex;">
+                                <h3>{{ user.username }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

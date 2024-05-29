@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Register</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password-verify">Verify Password:</label>
+                <input type="password" id="password-verify" name="password-verify" class="form-control" required>
+                {% if password != password_verify %}
+                    <p class="error">Passwords do not match.</p>
+                {% endif %}
+            </div>
+            <input type="submit" value="Register" class="btn btn-primary">
+        </form>
+        <p>Already have an account? <a href="/user/login">Login</a></p>
+    </div>
+</body>
+</html> 

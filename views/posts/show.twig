@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+</head>
+<body>
+    <div class="main-container">
+            <div style="flex: 1;">
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header">
+                       <div class="profile-photo" style="float: left;">
+                        <img src="../img/{{ post.profilephoto }}.png" alt="Profile Photo" width="50" height="50">
+                    <a href="profile/show?id={{ post.user_id }}">{{ post.username }}</a>
+                </div>
+                {% if post.user_id == user.id %}
+                <div class="dropdown" style="float: right;">
+                    <button class="edit-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: -100px;">
+                        <a class="dropdown-item" href="/post/edit?id={{post.id}}">Edit</a>
+                        <a class="dropdown-item" href="/post/delete?id={{post.id}}">Delete</a>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="username" style="float: left; margin-left: 10px;">
+                </div>
+            </div>
+            <div class="card-body">
+                <pre><code style="width: 100%;" class="language-{{ post.language }}">{{ post.code }}</code></pre>
+            </div>
+            <div class="card-footer">
+                <div>
+                    <div class="card-date" style="float: left; margin-top 5px;">
+                        <div>
+                            <button class="like-button" style="float: left;">
+                                <a href='/post/like?id={{ post.id }}'>
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                            </button>
+                        </div>
+                        <div class="card-comments" style="float: left;">
+                            <a href="user/show?id={{ post.user_id }}">{{post.username}}:</a>
+                        {% if post.user_id == user.id and  currentUrl == "/post/edit?id=" ~ post.id %}
+                            <span>
+                                <form method="POST" action= 'edit?id={{post.id}}' >
+                                    <div class="form-group">
+                                        <input id="content" name="content" class="form-control" value="{{ post.content }}">
+                                    </div>
+                                    <input type="submit" value="Submit" class="btn btn-primary">
+                                </form>
+                            </span>
+                            {% else %}
+                            <span> {{post.content}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-likes" style="position: absolute; float: left; margin-left: 40px;">
+                        {{ post.likes }} likes
+                    </div>
+                </div>
+                <div>
+                </div>
+                <div class="card-date" style="float: right;">
+                    {{ post.created_at }}
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-comments">
+                    {% if user is null %}
+                    <span>You must be logged in to comment here</span>
+                    <a href="user/login">Login</a> or <a href="user/register">Register</a>
+                    {% elseif post.comments is empty %}
+                    <div class="card-footer">
+                        <span>No comments yet</span>
+                    </div>
+
+                    <form method="POST" action="/post/createcomment">
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <input type="text" name="content" placeholder="Comment..." style="width: 80%;">
+                        <button type="submit" value="Submit" class="comment-button" style="float: right;">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    {% else %}
+
+                    {% for comment in post.comments %}
+                    <div style="text-align: {% if comment.user_id == user.id %}right{% else %}left{% endif %};">
+                        <a href="profile/show?id={{ comment.user_id }}">{{comment.username}}:</a>
+                        <span> {{comment.content}}</span>
+                    </div>
+                    {% endfor %}
+                    <form method="POST" action="/post/createcomment">
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <input type="text" name="content" placeholder="Comment..." style="width: 80%;">
+                        <button type="submit" value="submit" class="comment-button" style="float: right;">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+</body>
+</html>
