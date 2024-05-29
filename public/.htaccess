@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Rewrite for specific show methods with ID
+RewriteCond %{QUERY_STRING} ^id=(\d+)$
+RewriteRule ^post/show$ /?controller=post&method=show&id=%1 [L,QSA]
+# Rewrite for specific show methods
+RewriteRule ^post/show/?$ /?controller=post&method=show [L,QSA]
+
+# Rewrite for index methods
+RewriteRule ^([a-zA-Z]+)/?$ /?controller=$1 [L,QSA]
+RewriteRule ^([a-zA-Z]+)/index/?$ /?controller=$1&method=index [L,QSA]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)?$ /?controller=$1&method=$2 [L,QSA]
+# Rewrite for URLs with 3 or more parameters
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/(.*)$ /?controller=$1&method=$2&$3=$4 [L,QSA]
