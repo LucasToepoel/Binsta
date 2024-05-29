@@ -6,11 +6,12 @@ Binsta!
 
 - [Installation](#installation)
 
+
 ## Requirements
 
 - PHP -V 8.1.0^
 - composer
-- twig
+- twig --dev
 - RedBeans
 - apache (or any other server host)
 
@@ -22,5 +23,5 @@ Binsta!
 - create a database
 - configure mysql connection in helpers.pnp
 - run seeder.php
-- go to (or any other name you might have given) http:localhost/
+- go to host
 - done
