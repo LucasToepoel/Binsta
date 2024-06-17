@@ -1,6 +1,4 @@
-# Project Title
-
-Binsta!
+# Binsta!
 
 ## Table of Contents
 
